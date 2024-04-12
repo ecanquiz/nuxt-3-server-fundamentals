@@ -1,2 +1,2 @@
-# nuxt-3-server-fundamentals
-Nuxt-3-Server-Fundamentals
+# how-to-code-in-javascript
+How To Code In JavaScript
