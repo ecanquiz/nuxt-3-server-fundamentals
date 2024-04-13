@@ -1,6 +1,8 @@
 # Ruta Básica de la API del Servidor
 
-## Aprenda los conceptos básicos de la API de Nuxt
+> Aprenda los conceptos básicos de la API de Nuxt
+
+## Creando una API
 
 Comencemos creando una API en la carpeta de `server/`. Cree una nueva carpeta y llamémosla `api/`. Luego, dentro de esta carpeta, cree un nuevo archivo y llamémoslo `test.ts`.
 
@@ -19,50 +21,52 @@ Luego guarde el archivo y diríjase a Postman, llamemos desde la url `http://loc
 
 ![screen02](./img/screen02.jpg)
 
-Como puede ver, genera el  `'Hello World'`, volvemos aquí.
+Como puede ver, genera el  `'Hello World'`.
+
+## Establecer un método HTTP específico
+
+Si quieres establecer un método HTTP específico en la API de tu servidor, simplemente puede solucionarlo con el método que desea, así que cámbiele el nombre al archivo, por ejemplo, `test.get.ts`. Por lo que esto se convertirá automáticamente en un controlador `GET`.
+
+![screen02](./img/screen03.jpg)
+
+📃`./server/api/test.get.js`
+```ts
+export default defineEventHandler((event)=>{
+  return 'Hello World with GET method'
+})
+```
+
+Volvamos al cartero y si lo enviamos, generará el `'Hello World'`, está bien, pero si vamos a cambiar el método a `POST` enviar eso ya no funcionará ya que este es el controlador `GET`.
+
+![screen02](./img/screen04.jpg)
+
+Está bien, pero si quieres cambiar el método de la API a `POST`, puedes cambiar el nombre nuevamente o crear otra prueba. Cree un archivo `test.post.ts` `POST`.
+
+![screen02](./img/screen05.jpg)
+
+📃`./server/api/test.post.js`
+```ts
+export default defineEventHandler((event)=>{
+  return 'Hello World with POST method'
+})
+```
+
+Vamos a Postman, envíalo y funcionará.
+
+![screen02](./img/screen06.jpg)
 
 
+Así que lo mismo para `PUT`, `PATCH` y `DELETE`. Si quiere obtener más información al respecto [consulte la documentación oficial](https://nuxt.com/docs/guide/directory-structure/server#matching-http-method).
 
 
+## I go - 4:07
 
-
-
-
-
-
-
-
-
-
- y si quieres configurar un HTTP específico.
-2:38
-método en la API de su servidor um, simplemente puede solucionarlo con el uh
-2:44
-método que desea, así que cambie el nombre y luego pruebe, obtenga, por ejemplo, para que
-2:51
-Será prueba. conseguir. DS, por lo que esto se convertirá automáticamente en un controlador de obtención.
-2:58
-Bien, volvamos al cartero y si lo enviamos, generará el
-3:05
-Hola mundo, está bien, pero si vamos a cambiar el método uh a publicación.
-3:11
-enviar eso ya no funcionará ya que este es el controlador de obtención ahora
-3:18
-Está bien, pero si quieres que tu API publique, puedes cambiar el nombre.
-3:24
-eso nuevamente y luego cambiarlo para publicarlo bien en el
-3:30
-cartero, envía eso y funcionará igual, así que lo mismo para el
-3:37
-Um, ponga el parche y elimine, está bien, así que veamos la siguiente documentación real.
 3:44
 rápido, así que aquí en el método HTTP de coincidencia U hay una publicación um get y
 3:52
 poner y eliminar, está bien, así que aquí el método get devuelve obtener el controlador, está bien, lo mismo
 3:59
-cosa para la publicación, devolverá un controlador de publicación um, está bien, cualquier otro
-4:04
-Los métodos devuelven el error 405, está bien en caso de que no desee utilizar la palabra API en
+cosa para la publicación, devolverá un controlador de publicación um, está bien, , está bien en caso de que no desee utilizar la palabra API en
 4:11
 su servidor enruta, así que, por ejemplo, aquí en el cartero, puede ver si
 4:17
