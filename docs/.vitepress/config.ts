@@ -2,9 +2,9 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Cómo codificar en JS',
+  title: 'Fundamentos del Servidor Nuxt 3',
   description: 'TDD con Vue 3.',
-  base: '/how-to-code-in-javascript/',
+  base: '/nuxt-3-server-fundamentals/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/me.jpg',
@@ -18,8 +18,9 @@ export default defineConfig({
       sidebarDepth: 1,    // optional, defaults to 1
       items: [
         { text: 'Introducción', link: '/intro' },
-        { text: 'Cómo Utilizar la Consola para Desarrolladores', link: '/how-to-use-the-js-dev-console' },
-        { text: 'Cómo Agregar JS a HTML', link: '/how-to-add-javascript-to-html' },
+        { text: 'Ruta Básica de la API del Servidor', link: '/server-api-basic-route' },
+        { text: 'Ruta Dinámica Básica de la API del Servidor', link: '/basic-dynamic-server-api-route' },
+        { text: 'Cómo Utilizar la Consola para Desarrolladores', link: '/how-to-use-the-js-dev-console' },        
       ]
     }],
     socialLinks: [

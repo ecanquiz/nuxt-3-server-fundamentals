@@ -6,7 +6,7 @@ La fuente original (en ingles) de este tutorial se encuentra [aquí](https://www
 
 >Si quieres aprender los fundamentos básicos del servidor Nuxt, esto es para ti.
 
-## En este tutorial que vamos a explorar y crear los siguientes temas:
+## En este tutorial vamos a explorar y crear los siguientes temas:
 
 - Puntos finales de API básicos
 - Ruta básica de API dinámica

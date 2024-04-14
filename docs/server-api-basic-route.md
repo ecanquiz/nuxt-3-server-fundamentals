@@ -40,7 +40,7 @@ Volvamos al cartero y si lo enviamos, generará el `'Hello World'`, está bien, 
 
 ![screen02](./img/screen04.jpg)
 
-Está bien, pero si quieres cambiar el método de la API a `POST`, puedes cambiar el nombre nuevamente o crear otra prueba. Cree un archivo `test.post.ts` `POST`.
+Está bien, pero si quieres cambiar el método de la API a `POST`, puedes cambiar el nombre nuevamente o crear otra prueba. Cree un archivo `test.post.ts`.
 
 ![screen02](./img/screen05.jpg)
 
@@ -59,37 +59,26 @@ Vamos a Postman, envíalo y funcionará.
 Así que lo mismo para `PUT`, `PATCH` y `DELETE`. Si quiere obtener más información al respecto [consulte la documentación oficial](https://nuxt.com/docs/guide/directory-structure/server#matching-http-method).
 
 
-## I go - 4:07
+## Si no utiliza la palabra `api`
 
-3:44
-rápido, así que aquí en el método HTTP de coincidencia U hay una publicación um get y
-3:52
-poner y eliminar, está bien, así que aquí el método get devuelve obtener el controlador, está bien, lo mismo
-3:59
-cosa para la publicación, devolverá un controlador de publicación um, está bien, , está bien en caso de que no desee utilizar la palabra API en
-4:11
-su servidor enruta, así que, por ejemplo, aquí en el cartero, puede ver si
-4:17
-Voy a cambiar eso a publicación y luego enviaré como puedes ver que hay un um
-4:22
-API allí, por lo que la prueba API SL está bien, pero si desea eliminar la API y simplemente
-4:29
-llame al nombre del archivo um de la API um allí para enviarlo y ya no funcionará, así que
-4:36
-para lograr eso, simplemente necesita cambiar el nombre de la API aquí y luego cambiar
-4:41
-a las rutas, está bien así y luego regresa al cartero y si lo intentas
-4:48
-eso nuevamente, envíelo y, como puede ver, genera hola mundo sin um
-4:54
-El sufijo API aquí está bien, así que esto es opcional, um si todavía
-5:00
-Si desea utilizar la API SL API um U SL, entonces
-5:05
-La prueba que fue um funciona igual, pero el uso común aquí es um host y
-5:13
-Luego, seguido de una API y luego el nombre de la API, está bien, así que envíe eso no
-5:20
-ya no funciona, así que voy a cambiarlo de nuevo a API, ya que me gusta así.
-5:27
-camino y luego de vuelta en el correo, hombre, envíalo de vuelta y funcionará de nuevo.
+En caso de que no desee utilizar la palabra `api` en las rutas de su servidor, por ejemplo, si desea eliminar la palabra `api` y simplemente
+llamar al nombre del archivo de la API, ya no funcionará.
+
+![screen02](./img/screen07.jpg)
+
+Así que necesitará cambiar el nombre de `api` a `routes`.
+
+![screen02](./img/screen08.jpg)
+
+
+Luego regrese a Postman y si lo intentas nuevamente, envíelo y, como puede ver, genera `Hello World` sin el prefijo `api`.
+
+![screen02](./img/screen09.jpg)
+
+Así que esto es opcional, pero el uso común aquí es `host` y luego, seguido del nombre de `api`. Así que voy a cambiarlo de nuevo a `api`, ya que gusta más así.
+
+![screen02](./img/screen10.jpg)
+
+Luego de vuelta en Postman, envíelo y funcionará de nuevo.
+
+![screen02](./img/screen11.jpg)
