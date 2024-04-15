@@ -20,11 +20,12 @@ export default defineConfig({
         { text: 'Introducción', link: '/intro' },
         { text: 'Ruta Básica de la API del Servidor', link: '/server-api-basic-route' },
         { text: 'Ruta Dinámica Básica de la API del Servidor', link: '/basic-dynamic-server-api-route' },
+        { text: 'Ruta Anidada Básica de la API del Servidor', link: '/basic-nested-server-api-route' },
         { text: 'Cómo Utilizar la Consola para Desarrolladores', link: '/how-to-use-the-js-dev-console' },        
       ]
     }],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ecanquiz/how-to-code-in-javascript' }
+      { icon: 'github', link: 'https://github.com/ecanquiz/nuxt-3-server-fundamentals' }
     ]
   }
 })
