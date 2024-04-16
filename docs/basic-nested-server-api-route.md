@@ -1,5 +1,110 @@
 # Ruta Anidada Básica de la API del Servidor
 
+## Aprenda a crear una ruta API anidada
+
+>Ahora que sabemos cómo crear una [ruta API dinámica simple](./basic-dynamic-server-api-route.html), continúe con la ruta anidada.
+
+En la carpeta `server/` y luego dentro de la carpeta `api/`, creemos una nueva carpeta que vamos a necesitar, llamémosla `nested/`, pero puede nombrarla como desee.
+
+![screen12](./img/screen20.jpg)
+
+Entonces, dentro de la carpeta `nested/`, crearemos un archivo abriendo y cerrando corchete e introduciendo tres puntos `[...]` y luego el respectivo `.ts`.
+
+![screen12](./img/screen21.jpg)
+
+
+Luego aquí creemos un enrutador para que con el enrutador, llamaremos al enrutador seguido del método um HTTP, por lo que en este caso o en nuestro ejemplo
+
+aquí está `get` y luego um _slash_ y luego digamos `test`.
+
+
+
+y luego el segundo parámetro será Definir controlador de eventos, está bien y luego
+
+evento está bien así como así y luego simplemente regresemos aquí um prueba
+
+ruta anidada bien y luego exportemos
+
+predeterminado está bien uh predeterminado está bien y
+
+luego usa base y esa será la um API
+
+y luego la API anidada aquí y luego
+
+um anidado y luego el segundo parámetro será um enrutador y luego Handler, está bien
+
+Así y luego guardemos el archivo y luego abramos el cartero aquí.
+
+Entonces um cambia eso a anidado y luego um
+
+agreguemos también aquí las pruebas, entonces la prueba que creamos aquí, así que envíe
+
+eso y eso generará la ruta listada de prueba, así que está aquí bien y si
+
+También querías crear un método de publicación um aquí, por ejemplo, enrutador um y
+
+entonces eso se publicará, está bien, entonces, la publicación del enrutador, por ejemplo, y luego, digamos
+
+uh, digamos que usamos el mismo punto final de API, así que pruebe y luego
+
+Defina el controlador de eventos y luego ese será un evento, está bien y luego
+
+volver a publicar la ruta anidada, está bien, así que de vuelta en el uh
+
+Cartero, así que en lugar de recibirlo, si voy a enviarlo, generará el
+
+prueba la ruta anidada que es llegar aquí ya que nuestro método es obtener, pero si voy
+
+para um seleccione publicar aquí y luego envíe que generará el resultado
+
+uh, publique la ruta anidada, que es esta de aquí, está bien, lo mismo para um
+
+poner y parchear, está bien, así que veamos eso en acción, así que enrutador, digamos poner y luego probar
+
+En realidad, copiemos este bien y luego cambiémoslo para poner y luego
+
+También cambiemos el texto uh, así que elimínelo o, en realidad, simplemente
+
+Sólo um cambia este aquí para poner OK y luego lo mismo para um
+
+borrar y luego um borrar bien y luego volver al
+
+um cartero aquí, así que publique que generará la publicación enumerada
+
+ruta, así que si voy a cambiar eso para ponerlo en salida, generará el put uh
+
+ruta anidada y si voy a enviar un parche, esto no generará una salida
+
+cualquier cosa, ya que no lo hicimos, no lo especificamos aquí, así que agreguemos eso también, está bien por el bien de esto, um.
+
+tutorial para probar el parche y luego parchear bien y luego en el cartero
+
+así que envíe eso y generará la ruta anidada del parche um, lo mismo
+
+cosa para um eliminar, está bien, así que si desea agregar otra ruta después de la prueba
+
+Así que agreguemos aquí otro enrutador y luego su método HTTP y eso.
+
+será una prueba y luego digamos una categoría, ¿vale?
+
+categoría y luego seguido por Definir controlador de eventos Controlador y luego el
+
+evento está bien y luego volvamos aquí um
+
+categoría bien simple y luego de vuelta en el
+
+cartero y aquí, digamos cuál es el método aquí, así que consígalo después de la prueba.
+
+categoría de barra diagonal, está bien y dado que nuestro método es get, cambiémoslo para obtener
+
+está bien y luego envía eso y eso generará la categoría um aquí, está bien, lo mismo
+
+cosa cuando agregas otro um otro punto final aquí dentro o al lado del
+
+categoría, el mismo proceso, está bien, así es como se crea un anidado básico
+
+Rutas API o API del servidor
+
 8.42
 
 Learn how to create a nested API route
