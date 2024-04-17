@@ -10,7 +10,7 @@ Comencemos creando una API en la carpeta de `server/`. Cree una nueva carpeta y 
 
 Luego dentro del archivo `test.ts` exportar predeterminadamente el método `defineEventHandler` pasando como argumento una función de flecha que a su vez recibe el parametro `event` y simplemente regresaremos `'Hello World'`.
 
-📃`./server/api/test.js`
+📃`./server/api/test.ts`
 ```ts
 export default defineEventHandler((event)=>{
   return 'Hello World'
@@ -29,7 +29,7 @@ Si quieres establecer un método HTTP específico en la API de tu servidor, simp
 
 ![screen02](./img/screen03.jpg)
 
-📃`./server/api/test.get.js`
+📃`./server/api/test.get.ts`
 ```ts
 export default defineEventHandler((event)=>{
   return 'Hello World with GET method'
@@ -44,7 +44,7 @@ Está bien, pero si quieres cambiar el método de la API a `POST`, puedes cambia
 
 ![screen02](./img/screen05.jpg)
 
-📃`./server/api/test.post.js`
+📃`./server/api/test.post.ts`
 ```ts
 export default defineEventHandler((event)=>{
   return 'Hello World with POST method'

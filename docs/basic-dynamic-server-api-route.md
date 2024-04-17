@@ -12,7 +12,7 @@ así que aquí en la carpeta `server` y dentro de la carpeta `api/`, creemos un 
 Luego exportamos por defecto la función `defineEventHandler` pasando `event` como parametro y simplemente devolvemos `'Dinamic Route.'` y luego lo guardamos.
 
 
-📃`./server/api/[id].get.js`
+📃`./server/api/[id].get.ts`
 ```ts
 export default defineEventHandler((event) => {
   return 'Dinamic Route.'
@@ -29,7 +29,7 @@ genera la ruta dinámica que es esta.
  
 Así que regrese al código y si desea mostrar el valor dinámico como nuestro retorno, puede simplemente usar una de las utilidades de [**H3** que es `getRouterParams`](https://h3.unjs.io/utils/request#getrouterparamsevent-opts-decode), mandando `evento` como argumento.
 
-📃`./server/api/[id].get.js`
+📃`./server/api/[id].get.ts`
 ```ts
 export default defineEventHandler((event) => {
   return getRouterParams(event)

@@ -8,209 +8,113 @@ En la carpeta `server/` y luego dentro de la carpeta `api/`, creemos una nueva c
 
 ![screen12](./img/screen20.jpg)
 
-Entonces, dentro de la carpeta `nested/`, crearemos un archivo abriendo y cerrando corchete e introduciendo tres puntos `[...]` y luego el respectivo `.ts`.
+Entonces, dentro de la carpeta `nested/`, crearemos un archivo abriendo y cerrando corchete e introduciendo tres puntos así `[...]` dentro de ellos y luego la extensión del archivo que es `.ts`.
 
 ![screen12](./img/screen21.jpg)
 
 
-Luego aquí creemos un enrutador para que con el enrutador, llamaremos al enrutador seguido del método um HTTP, por lo que en este caso o en nuestro ejemplo
+Luego aquí creemos un `router` con `createRouter`. Entonces llamaremos al `router` seguido del método _HTTP_, por lo que en nuestro ejemplo aquí es `get`. Pasaremos como primer parámetro `'/test'` y como segundo parámetro la función `defineEventHandler` con su correspondiente `event` como parametro y simplemente retornaremos `'Get nested route.'`. Finalmente exportemos por defecto `useBase()` pasando `'/api/nested'` como primer parámetro y luego el segundo parámetro será `router.handler`.
 
-aquí está `get` y luego um _slash_ y luego digamos `test`.
+📃`./server/api/nested/[...].ts`
+```ts
+const router = createRouter()
 
+router.get('/test', defineEventHandler((event) => {
+    return 'Get nested route.'
+}))
 
+export default useBase('/api/nested', router.handler)
+```
 
-y luego el segundo parámetro será Definir controlador de eventos, está bien y luego
+Así que guardemos el archivo y luego probaremos en Postman con la ruta `/api/nested/test` y esto regresará `Get nested route.`.
 
-evento está bien así como así y luego simplemente regresemos aquí um prueba
 
-ruta anidada bien y luego exportemos
+![screen12](./img/screen22.jpg)
 
-predeterminado está bien uh predeterminado está bien y
 
-luego usa base y esa será la um API
+Y también si querías crear un método `post` aquí, por ejemplo, está bien. Entonces, creamos el `router.post`, digamos que usamos el mismo punto final de API, así que será `/test` luego el `defineEventHandler` con su correspondiente `event` como parametro y simplemente retornaremos `'Post nested route.'`
 
-y luego la API anidada aquí y luego
 
-um anidado y luego el segundo parámetro será um enrutador y luego Handler, está bien
+📃`./server/api/nested/[...].ts`
+```ts{7,8,9}
+const router = createRouter()
 
-Así y luego guardemos el archivo y luego abramos el cartero aquí.
+router.get('/test', defineEventHandler((event) => {
+    return 'Get nested route.'
+}))
 
-Entonces um cambia eso a anidado y luego um
+router.post('/test', defineEventHandler((event) => {
+    return 'Post nested route.'
+}))
 
-agreguemos también aquí las pruebas, entonces la prueba que creamos aquí, así que envíe
+export default useBase('/api/nested', router.handler)
+```
 
-eso y eso generará la ruta listada de prueba, así que está aquí bien y si
+Así que guardemos el archivo y de vuelta a Postman con la misma ruta `"/api/nested/test"` pero ahora seleccionando el método `POST`, ahora esto regresará `Post nested route.`.
 
-También querías crear un método de publicación um aquí, por ejemplo, enrutador um y
+![screen12](./img/screen23.jpg)
 
-entonces eso se publicará, está bien, entonces, la publicación del enrutador, por ejemplo, y luego, digamos
 
-uh, digamos que usamos el mismo punto final de API, así que pruebe y luego
+Lo mismo para `PUT`, `PATCH` y `DELETE`, así que veamos eso en acción. Copiemos esto y luego cambiémoslo para poner `put`, `patch` y `delete` respectivamente. También cambiemos el texto.
 
-Defina el controlador de eventos y luego ese será un evento, está bien y luego
+📃`./server/api/nested/[...].ts`
+```ts
+const router = createRouter()
 
-volver a publicar la ruta anidada, está bien, así que de vuelta en el uh
+// omitted for brevity ...
 
-Cartero, así que en lugar de recibirlo, si voy a enviarlo, generará el
+router.put('/test', defineEventHandler((event) => {
+    return 'Put nested route.'
+}))
 
-prueba la ruta anidada que es llegar aquí ya que nuestro método es obtener, pero si voy
+router.patch('/test', defineEventHandler((event) => {
+    return 'Patch nested route.'
+}))
 
-para um seleccione publicar aquí y luego envíe que generará el resultado
+router.delete('/test', defineEventHandler((event) => {
+    return 'Delete nested route.'
+}))
 
-uh, publique la ruta anidada, que es esta de aquí, está bien, lo mismo para um
+export default useBase('/api/nested', router.handler)
+```
 
-poner y parchear, está bien, así que veamos eso en acción, así que enrutador, digamos poner y luego probar
+Volvamos a Postman para probar uno a uno, empecemos con `PUT`.
 
-En realidad, copiemos este bien y luego cambiémoslo para poner y luego
+![screen12](./img/screen24.jpg)
 
-También cambiemos el texto uh, así que elimínelo o, en realidad, simplemente
+Luego probemos con `PATCH`.
 
-Sólo um cambia este aquí para poner OK y luego lo mismo para um
+![screen12](./img/screen25.jpg)
 
-borrar y luego um borrar bien y luego volver al
+Finalmente el `DELETE`.
 
-um cartero aquí, así que publique que generará la publicación enumerada
+![screen12](./img/screen26.jpg)
 
-ruta, así que si voy a cambiar eso para ponerlo en salida, generará el put uh
 
-ruta anidada y si voy a enviar un parche, esto no generará una salida
+Si desea agregar otra ruta después, agreguemos aquí otro `router` y luego otro método HTTP, por ejemplo `get`, que será la ruta anidada `/api/nested/test/category`. Con su `defineEventHandler`, su correspondiente `event` como parametro y simplemente retornaremos `'Category.'`
 
-cualquier cosa, ya que no lo hicimos, no lo especificamos aquí, así que agreguemos eso también, está bien por el bien de esto, um.
 
-tutorial para probar el parche y luego parchear bien y luego en el cartero
+📃`./server/api/nested/[...].ts`
+```ts
+const router = createRouter()
 
-así que envíe eso y generará la ruta anidada del parche um, lo mismo
+// omitted for brevity ...
 
-cosa para um eliminar, está bien, así que si desea agregar otra ruta después de la prueba
+router.get('/test/category', defineEventHandler((event) => {
+    return 'Category.'
+}))
 
-Así que agreguemos aquí otro enrutador y luego su método HTTP y eso.
+export default useBase('/api/nested', router.handler)
+```
 
-será una prueba y luego digamos una categoría, ¿vale?
+Luego de vuelta a Postman, seleccionamos en este caso el método `GET`, y luego envía eso y eso generará la `'Category.'`
 
-categoría y luego seguido por Definir controlador de eventos Controlador y luego el
 
-evento está bien y luego volvamos aquí um
+![screen12](./img/screen27.jpg)
 
-categoría bien simple y luego de vuelta en el
 
-cartero y aquí, digamos cuál es el método aquí, así que consígalo después de la prueba.
+Lo mismo cosa cuando agregas otro punto final dentro o al lado de `api/test/category`, el mismo proceso. Así es como se crea un anidado básico de Rutas API del servidor.
 
-categoría de barra diagonal, está bien y dado que nuestro método es get, cambiémoslo para obtener
 
-está bien y luego envía eso y eso generará la categoría um aquí, está bien, lo mismo
 
-cosa cuando agregas otro um otro punto final aquí dentro o al lado del
 
-categoría, el mismo proceso, está bien, así es como se crea un anidado básico
-
-Rutas API o API del servidor
-
-8.42
-
-Learn how to create a nested API route
-
-okay now that we know how to create a simple um Dynamic API route let's
-
-proceed with the um nested route okay so here in the server folder and then inside the API folder let's create a new
-
-folder so um we're not going to um we're not going to need this one so let's just
-
-create a new folder here so let's name it um nested okay but you can name it
-
-whatever you want and then inside the nested folder open closing brackets and
-
-Then followed by or inside inside it it's three dots okay and then the file
-
-extension which is DS okay and then here let's create a router so con router and
-
-that will be create router okay then after that let's call the router so
-
-router and Then followed by the um HTTP method so in this case or in our example
-
-here it's get and then um slash and then let's say um test okay
-
-and then the second parameter will be the Define event handler okay and then
-
-event okay just like that and then let's simply return here um test
-
-nested route okay and then after that let's export
-
-default okay uh default okay and
-
-then use base and then that will be the um API
-
-and then the nested here so API and then
-
-um nested and then the second parameter will be um router and then Handler okay
-
-just like that and then save the file and then let's um open the postman here
-
-so um change that to nested and then um
-
-let's also add here the tests so the test that we created here so so send
-
-that and that will output the test listed route so that's here okay and if
-
-you also wanted to create a um post method here so for example um router and
-
-then that will be post okay so router post for example and then um let's say
-
-uh let's let's say we use the same um API endpoint so test and then
-
-Define event handler and then that will be an event okay and then
-
-return post nested route okay so back in the uh
-
-Postman so instead of get so if I'm going to send that that will output the
-
-test nested route which is the get here since our method is get but if I'm going
-
-to um select post here and then send that it will output output the
-
-uh post nested route which is this one here okay so the same thing for the um
-
-put and Patch okay so let's see that in action so router um let's say put and then test
-
-let's actually just copy this one okay and then change that to put and then
-
-let's also change the uh text as well so remove that or actually just let's
-
-just um change this one here to put okay and then same thing for the um
-
-delete and then um delete okay and then back in the
-
-um Postman here so post that will output the post listed
-
-route so if I'm going to change that to put it output it outputs the put uh
-
-nested route and if I'm going to send patch this it's not going to um output
-
-anything since we don't we didn't we didn't specify that here so let's also add that okay for the sake of this um
-
-tutorial so patch test and then patch okay and then in the postman
-
-so send that and it'll output it will output the um patch nested route so same
-
-thing for the um delete okay so if you want to add another route after the test
-
-so let's just um add here another router and then um your HTTP method and that
-
-will be um test and then um let's say a category okay
-
-category and Then followed by the Define event handler Handler and then the
-
-event okay and then let's return here um
-
-category okay simple and then back in the
-
-postman and here let's um what's the method here so get so after the test
-
-slash category okay and since our method there is get let's change that to get
-
-okay and then send that and that will output the um category here okay so same
-
-thing when you add another um another end point here inside or next to the
-
-category just the same process okay so that's how you um create a basic nested
-
-API routes or server API
