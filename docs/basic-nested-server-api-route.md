@@ -12,6 +12,7 @@ Entonces, dentro de la carpeta `nested/`, crearemos un archivo abriendo y cerran
 
 ![screen12](./img/screen21.jpg)
 
+## Punto final con método `get`
 
 Luego aquí creemos un `router` con `createRouter`. Entonces llamaremos al `router` seguido del método _HTTP_, por lo que en nuestro ejemplo aquí es `get`. Pasaremos como primer parámetro `'/test'` y como segundo parámetro la función `defineEventHandler` con su correspondiente `event` como parametro y simplemente retornaremos `'Get nested route.'`. Finalmente exportemos por defecto `useBase()` pasando `'/api/nested'` como primer parámetro y luego el segundo parámetro será `router.handler`.
 
@@ -26,13 +27,15 @@ router.get('/test', defineEventHandler((event) => {
 export default useBase('/api/nested', router.handler)
 ```
 
-Así que guardemos el archivo y luego probaremos en Postman con la ruta `/api/nested/test` y esto regresará `Get nested route.`.
+Así que guardemos el archivo y luego probaremos en Postman con la ruta `/api/nested/test` y esto regresará `Get nested route.`. Asegúrese de antes haber seleccionado el método **_GET_** en Postman para probar este punto final.
 
 
 ![screen12](./img/screen22.jpg)
 
 
-Y también si querías crear un método `post` aquí, por ejemplo, está bien. Entonces, creamos el `router.post`, digamos que usamos el mismo punto final de API, así que será `/test` luego el `defineEventHandler` con su correspondiente `event` como parametro y simplemente retornaremos `'Post nested route.'`
+## Punto final con método `post`
+
+Si quiere crear un método `post`, aquí por ejemplo. Entonces, creamos el `router.post`, digamos que usamos el mismo punto final de API, así que será `/test` luego el `defineEventHandler` con su correspondiente `event` como parametro y simplemente retornaremos `'Post nested route.'`
 
 
 📃`./server/api/nested/[...].ts`
@@ -54,8 +57,11 @@ Así que guardemos el archivo y de vuelta a Postman con la misma ruta `"/api/nes
 
 ![screen12](./img/screen23.jpg)
 
+## Puntos finales con métodos `put`, `patch` y `delete`
 
-Lo mismo para `PUT`, `PATCH` y `DELETE`, así que veamos eso en acción. Copiemos esto y luego cambiémoslo para poner `put`, `patch` y `delete` respectivamente. También cambiemos el texto.
+>Lo mismo para `PUT`, `PATCH` y `DELETE`, así que veamos eso en acción.
+
+Copiemos uno de estos puntos y luego cambiémoslo para poner `put`, `patch` y `delete` respectivamente. También cambiemos el texto.
 
 📃`./server/api/nested/[...].ts`
 ```ts
@@ -90,6 +96,7 @@ Finalmente el `DELETE`.
 
 ![screen12](./img/screen26.jpg)
 
+## Agregar otra ruta
 
 Si desea agregar otra ruta después, agreguemos aquí otro `router` y luego otro método HTTP, por ejemplo `get`, que será la ruta anidada `/api/nested/test/category`. Con su `defineEventHandler`, su correspondiente `event` como parametro y simplemente retornaremos `'Category.'`
 
@@ -107,7 +114,7 @@ router.get('/test/category', defineEventHandler((event) => {
 export default useBase('/api/nested', router.handler)
 ```
 
-Luego de vuelta a Postman, seleccionamos en este caso el método `GET`, y luego envía eso y eso generará la `'Category.'`
+Luego de vuelta a Postman, seleccionamos en este caso el método `GET`, y luego enviamos eso y generará `'Category.'`.
 
 
 ![screen12](./img/screen27.jpg)
