@@ -1,5 +1,150 @@
 # Ruta Dinámica Anidada de la API del Servidor
 
+## Aprenda a crear una ruta API anidada dinámica
+
+Ahora que sabemos cómo crear rutas API anidadas simples, intentemos crear rutas API dinámicas anidadas. Será algo como [esto](./basic-dynamic-server-api-route.html), solo que estará anidado.
+
+![screen12](./img/screen28.jpg)
+
+
+Pero antes, una nota rápida sobre esto. En la [documentación oficial de Nuxt](https://nuxt.com/docs/guide/directory-structure/server#server-routes) dice lo siguiente:
+
+:::info
+Tenga en cuenta que actualmente las rutas del servidor no admiten la funcionalidad completa de las rutas dinámicas como lo hacen las páginas.
+:::
+
+Durante la prueba, realmente funciona. Pero no sugeriría que uses esto en el tus proyectos del mundo real. Estamos seguro de que en el futuro admitirán rutas API dinámicas, así que realmente, vamos a probarlo.
+
+Aquí en la carpeta `api/` creemos una nueva carpeta, digamos por ejemplo, que tenemos productos, así que será `products/`.
+
+![screen12](./img/screen29.jpg)
+
+Luego dentro de la carpeta `products/`, creemos un nuevo archivo que será una categoría dinámica. Entonces será `[category]` seguido de un método HTTP más la extensión `.ts`.
+
+![screen12](./img/screen30.jpg)
+
+
+
+
+Entonces exporte el valor predeterminado `defineEventHandler` el controlador de eventos y luego el evento. Y entonces simplemente regresemos categoría de producto.
+
+
+📃`./server/api/products/[category].get.ts`
+```ts
+export default defineEventHandler((event) => {
+  return 'Product Category.'
+})
+```
+
+Y luego veamos eso en acción con Postman enviando `/api/products/sdsdsds`. Esto viene siendo los productos y luego el nombre dinámico de la categoría.
+
+![screen12](./img/screen31.jpg)
+
+
+## Luego um para crear rutas dinámicas anidadas.
+
+crea una nueva carpeta y esa será una categoría, entonces Categoría, está bien, así, muy similar a esta, la única diferencia es um
+
+este es un archivo y esta es una carpeta, está bien, dentro de una categoría 
+
+![screen12](./img/screen32.jpg)
+
+Dentro de una dinámica carpeta de categoría, creemos un nuevo archivo y ese será un ID de producto y luego seguido de un
+
+um un método que es obtener. DS está bien
+
+![screen12](./img/screen33.jpg)
+
+----
+
+entonces
+
+exportar valor predeterminado Definir controlador de eventos y luego
+
+evento correcto y luego um ID de producto correcto
+
+Está bien, entonces vamos a probar eso, así que aquí, ya que este es nuestro um.
+
+categoría de producto como puede ver si envío que esta es nuestra categoría de producto um, pero si voy a agregar um
+
+otra barra o barra diagonal allí para que active la ID del producto um aquí
+
+que también es dinámico, por ejemplo, un 123 que generará el ID del producto
+
+¿Cuál es este aquí? Para verlo en acción, si realmente es así.
+
+```ts
+export default defineEventHandler((event) => {
+    return 'Product ID.'
+  })
+```
+  
+![screen12](./img/screen34.jpg)
+
+trabajando así que regresemos y obtengamos una solicitud
+
+```ts
+export default defineEventHandler((event) => {
+    return getRouterParams(event)
+})
+```
+
+solicitar parámetros Creo que um parámetros un enrutador está bien y luego
+
+evento y luego guárdelo y luego en el cartero enviemos eso y será
+
+![screen12](./img/screen35.jpg)
+
+genere la categoría um aquí, cuál es esta y luego el ID del producto que
+
+![screen12](./img/screen36.jpg)
+
+¿Está bien este de aquí y si vamos a um solo la categoría aquí, así será?
+
+📃`./server/api/products/[category].get.ts`
+```ts
+export default defineEventHandler((event) => {
+  return getRouterParams(event)
+})
+```
+
+genera la categoría de producto, así que si vas a intentar generar los parámetros para que
+
+`http://localhost:3000/api/products/sdsdsds`
+![screen12](./img/screen37.jpg)
+
+Por ejemplo, aquí debería generar solo los parámetros de categoría um, así que volvamos
+
+
+`http://localhost:3000/api/products/category-value/123`
+![screen12](./img/screen38.jpg)
+
+al ID del producto um, así que uh 1 2 3 4, está bien
+
+![screen12](./img/screen39.jpg)
+
+y luego muestra el nombre de la categoría para que la categoría sea un valor de categoría, está bien
+
+![screen12](./img/screen40.jpg)
+
+entonces categoría y luego valor de categoría y luego ID de producto, ese es 1 2 3 4, está bien
+
+entonces la categoría aquí será um, esa es la carpeta de categorías um aquí o
+
+y luego el archivo de categoría uh y luego el ID del producto que será el ID del producto dinámico aquí, está bien, para que
+
+funcionará igual con uh post y estará bien, así que probémoslo, así que si
+
+Voy a cambiar eso a
+
+publicar bien y luego cambiar eso a
+
+publicar y luego funcionará igual, así que lo mismo para los demás también, así que coloque el parche y elimine, está bien, así que
+
+Espero que tenga sentido y déjame saber si tienes alguna sugerencia o pregunta sobre este, ya que creo que es KNX.
+
+KNX no verifica esto, pero creo que estoy seguro de que lo harán en el futuro.
+
 14:45m
 
 Learn how to create a dynamic nested API route
