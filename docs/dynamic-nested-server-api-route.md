@@ -36,26 +36,28 @@ export default defineEventHandler((event) => {
 })
 ```
 
-Y luego veamos eso en acción con Postman enviando `/api/products/sdsdsds`.
+Y luego veamos eso en acción con Postman enviando `/api/products/sdsdsds`. Esto viene siendo los productos y luego el nombre dinámico de la categoría.
 
 ![screen12](./img/screen31.jpg)
 
 
-, así que aquí, um, eliminemos eso, uh, realmente eliminemos
+## Luego um para crear rutas dinámicas anidadas.
 
-hasta que la API esté bien, entonces los productos y luego el nombre dinámico de la categoría um están bien, entonces
+crea una nueva carpeta y esa será una categoría, entonces Categoría, está bien, así, muy similar a esta, la única diferencia es um
 
-categoría de producto está bien y luego um para crear rutas dinámicas uh anidadas.
+este es un archivo y esta es una carpeta, está bien, dentro de una categoría 
 
-um crea una nueva carpeta y esa será una categoría, está bien, entonces
+![screen12](./img/screen32.jpg)
 
-Categoría, está bien, así, muy similar a esta, la única diferencia es um
+Dentro de una dinámica carpeta de categoría, creemos un nuevo archivo y ese será un ID de producto y luego seguido de un
 
-este es un archivo y esta es una carpeta, está bien, dentro de una categoría o dentro de una dinámica
+um un método que es obtener. DS está bien
 
-carpeta de categoría, creemos un nuevo archivo y ese será un ID de producto y luego seguido de un
+![screen12](./img/screen33.jpg)
 
-um un método que es obtener. DS está bien entonces
+----
+
+entonces
 
 exportar valor predeterminado Definir controlador de eventos y luego
 
@@ -71,23 +73,59 @@ que también es dinámico, por ejemplo, un 123 que generará el ID del producto
 
 ¿Cuál es este aquí? Para verlo en acción, si realmente es así.
 
+```ts
+export default defineEventHandler((event) => {
+    return 'Product ID.'
+  })
+```
+  
+![screen12](./img/screen34.jpg)
+
 trabajando así que regresemos y obtengamos una solicitud
+
+```ts
+export default defineEventHandler((event) => {
+    return getRouterParams(event)
+})
+```
 
 solicitar parámetros Creo que um parámetros un enrutador está bien y luego
 
 evento y luego guárdelo y luego en el cartero enviemos eso y será
 
+![screen12](./img/screen35.jpg)
+
 genere la categoría um aquí, cuál es esta y luego el ID del producto que
+
+![screen12](./img/screen36.jpg)
 
 ¿Está bien este de aquí y si vamos a um solo la categoría aquí, así será?
 
+📃`./server/api/products/[category].get.ts`
+```ts
+export default defineEventHandler((event) => {
+  return getRouterParams(event)
+})
+```
+
 genera la categoría de producto, así que si vas a intentar generar los parámetros para que
+
+`http://localhost:3000/api/products/sdsdsds`
+![screen12](./img/screen37.jpg)
 
 Por ejemplo, aquí debería generar solo los parámetros de categoría um, así que volvamos
 
+
+`http://localhost:3000/api/products/category-value/123`
+![screen12](./img/screen38.jpg)
+
 al ID del producto um, así que uh 1 2 3 4, está bien
 
+![screen12](./img/screen39.jpg)
+
 y luego muestra el nombre de la categoría para que la categoría sea un valor de categoría, está bien
+
+![screen12](./img/screen40.jpg)
 
 entonces categoría y luego valor de categoría y luego ID de producto, ese es 1 2 3 4, está bien
 
