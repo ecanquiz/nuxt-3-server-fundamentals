@@ -1,30 +1,138 @@
 # Middleware de Servidor
 
-Aprenda los conceptos básicos del middleware del servidor
+>Ahora que hemos terminado de trabajar con los puntos finales de la API del servidor, exploremos el middleware del servidor.
 
-20m
+## Conceptos básicos del middleware del servidor
 
-Está bien, ahora que hemos terminado de trabajar con los puntos finales de la API del servidor um.
+Cerremos la carpeta `api/` por ahora y luego en la carpeta `server/`, haga clic derecho y luego crear nueva carpeta. Llamémosla `middleware/`, aquí leerá automáticamente cualquier archivo dentro de esta carpeta y se leerá como un middleware de servidor.
 
-Exploremos el middleware del servidor um, así que cerremos la carpeta API por ahora.
+![screen12](./img/screen41.jpg)
 
-y luego aquí en la carpeta del servidor, haga clic derecho y luego nueva carpeta, está bien y luego
+A continuación creemos un nuevo archivo llamado `log.ts`.
 
-Llamémoslo um middleware, está bien, así que a continuación leerá automáticamente cualquier archivo.
+![screen12](./img/screen42.jpg)
 
-dentro de la carpeta middleware y se leerá como un middleware de servidor, ¿vale?
+Por cierto, puedes nombrar este archivo aquí como quieras. En mi caso es un registro de consola en este ejemplo Y también observe
 
-así que creemos un nuevo archivo y luego iniciemos sesión. DS
+que no estamos estamos añadiendo ningún tipo de sufijo relacionado con métodos HTTP porque o lo necesitamos en el middleware.
 
-Está bien y, por cierto, puedes nombrar el archivo aquí como quieras.
+Entonces, aquí en el archivo el mismo proceso. 
 
-entonces en mi caso es un registro de consola en este ejemplo, está bien, y también observe
 
-que um no estamos configurando ningún uh o no estamos añadiendo ningún método HTTP um
+21:11
 
-aquí, así que ya no lo necesitamos en el middleware, está bien, aquí en el archivo.
 
-Entonces, el mismo proceso. Entonces, en realidad, generemos el siguiente controlador de eventos.
+```ts
+export default defineEventHandler((event) => {
+  console.log('Middleware')
+})
+```
+
+
+
+
+---
+
+
+![screen12](./img/screen43.jpg)
+
+---
+
+
+![screen12](./img/screen44.jpg)
+
+---
+
+![screen12](./img/screen45.jpg)
+
+---
+
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.autorized = true
+  } else {
+    event.context.autorized = false
+  }
+})
+```
+
+---
+
+![screen12](./img/screen46.jpg)
+
+---
+
+![screen12](./img/screen47.jpg)
+
+---
+
+![screen12](./img/screen48.jpg)
+
+---
+
+`test.get.ts`
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.autorized)
+  return 'Hello World with GET method'
+})
+```
+
+![screen12](./img/screen49.jpg)
+
+---
+
+![screen12](./img/screen50.jpg)
+
+---
+
+![screen12](./img/screen51.jpg)
+
+---
+
+```ts
+export default defineEventHandler((event)=>{
+  if (!event.context.autorized) {
+    return createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+  return 'Hello World with GET method'
+})
+```
+---
+
+![screen12](./img/screen52.jpg)
+
+---
+
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.autorized)  
+  return 'Hello World with GET method'
+})
+```
+
+---
+
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.autorized = true
+  } else {
+    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+})
+```
+
+![screen12](./img/screen53.jpg)
+
+
+
+
+
+Entonces, en realidad, generemos el siguiente controlador de eventos.
 
 Así de fácil, así que exporta el valor predeterminado. Definir el controlador de eventos. Está bien y luego consolaremos.
 
