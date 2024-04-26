@@ -4,7 +4,7 @@
 
 ## Conceptos básicos del middleware del servidor
 
-Cerremos la carpeta `api/` por ahora y luego en la carpeta `server/`, haga clic derecho y luego crear nueva carpeta. Llamémosla `middleware/`, aquí leerá automáticamente cualquier archivo dentro de esta carpeta y se leerá como un middleware de servidor.
+Cerremos la carpeta `api/`, por ahora, y luego en la carpeta `server/` hagamos clic derecho y luego creemos una nueva carpeta. Llamémosla `middleware/`, aquí leerá automáticamente cualquier archivo dentro de esta carpeta y se leerá como un middleware de servidor.
 
 ![screen12](./img/screen41.jpg)
 
@@ -12,187 +12,70 @@ A continuación creemos un nuevo archivo llamado `log.ts`.
 
 ![screen12](./img/screen42.jpg)
 
-Por cierto, puedes nombrar este archivo aquí como quieras. En mi caso es un registro de consola en este ejemplo Y también observe
+Por cierto, puedes nombrar este archivo aquí como quieras. En mi caso es un registro de consola en este ejemplo. También observe que no estamos estamos añadiendo ningún tipo de sufijo relacionado con métodos HTTP porque no lo necesitamos en el middleware.
 
-que no estamos estamos añadiendo ningún tipo de sufijo relacionado con métodos HTTP porque o lo necesitamos en el middleware.
-
-Entonces, aquí en el archivo el mismo proceso. 
+Entonces, aquí en el archivo el mismo proceso.  Exportemos por defecto la definición de la función `defineEventHandler` pasandole `event` como parámetro y luego registrar en la cónsola `'Middleware'`.
 
 
-21:11
-
-
+📃`./server/middleware/log.ts`
 ```ts
 export default defineEventHandler((event) => {
   console.log('Middleware')
 })
 ```
 
-
-
-
----
+Entoces abrir Postman y luego, si recuerdas, esta es [la primera API que creamos](./server-api-basic-route.html). Así que devolverá el `'Hello World with GET method'`. Así que enviemos esto `http://localhost:3000/api/test`.
 
 
 ![screen12](./img/screen43.jpg)
 
----
+Vamos a la terminal, y como podemos ver, genera el `Middleware`.
 
 
 ![screen12](./img/screen44.jpg)
 
----
+
+:::info Importante
+El middleware se ejecutará primero antes de llegar a cualquier API. Es útil, si por ejemplo, estamos haciendo algunas validaciones o registrando cualquier solicitud o extendiendo los eventos.
+:::
+
+
+
+Veamos esto en acción, por ejemplo, en este mismo archivo vamos a ejecutar una validación simple de si la autorización existe. Simplemente eliminemos el cuerpo de la función y luego usaremos una utilidad `H3` que es `getRequestHeader` y luego el primer parámetro será el `event` y luego el segundo parámetro será el valor del encabezado, que será `authorization`. Puede usar una `'A'` mayúscula o minúscula, eso funcionará igualmente. Luego registremos la consola (por ahora), entonces guárdelo.
+
+
+📃`./server/middleware/log.ts`
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  console.log(authorization)
+})
+```
+
+Tenga en cuenta que no estamos haciendo ninguna validación por ahora, solo estamos registrando en la consola la `authorization`. De vuelta Postman enviemos la API, abramos la terminal, y como se esperaba, genera el resultado `undefined`.
+
 
 ![screen12](./img/screen45.jpg)
 
----
 
-```ts
-export default defineEventHandler((event) => {
-  const authorization = getRequestHeader(event, 'authorization')
-  if (authorization) {
-    event.context.autorized = true
-  } else {
-    event.context.autorized = false
-  }
-})
-```
-
----
+La razón de esto es que no especificamos la autorización, así que intentemos hacerlo. Asegúrese de que si está usando una `a` pequeña para `authorization` use una pequeña aquí también. Luego agregamos el valor que será `123` ya que este es solo un ejemplo simple.
 
 ![screen12](./img/screen46.jpg)
 
----
+Envíelo y generará `123`.
 
 ![screen12](./img/screen47.jpg)
 
----
 
-![screen12](./img/screen48.jpg)
 
----
 
-`test.get.ts`
-```ts
-export default defineEventHandler((event)=>{
-  console.log(event.context.autorized)
-  return 'Hello World with GET method'
-})
-```
 
-![screen12](./img/screen49.jpg)
+
+
+
 
 ---
 
-![screen12](./img/screen50.jpg)
-
----
-
-![screen12](./img/screen51.jpg)
-
----
-
-```ts
-export default defineEventHandler((event)=>{
-  if (!event.context.autorized) {
-    return createError({statusCode:401, statusMessage: 'Unauthorized'})
-  }
-  return 'Hello World with GET method'
-})
-```
----
-
-![screen12](./img/screen52.jpg)
-
----
-
-```ts
-export default defineEventHandler((event)=>{
-  console.log(event.context.autorized)  
-  return 'Hello World with GET method'
-})
-```
-
----
-
-```ts
-export default defineEventHandler((event) => {
-  const authorization = getRequestHeader(event, 'authorization')
-  if (authorization) {
-    event.context.autorized = true
-  } else {
-    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
-  }
-})
-```
-
-![screen12](./img/screen53.jpg)
-
----
-
-![screen12](./img/screen54.jpg)
-
----
-
-![screen12](./img/screen55.jpg)
-
-28:59m
-
-
-
-Entonces, en realidad, generemos el siguiente controlador de eventos.
-
-Así de fácil, así que exporta el valor predeterminado. Definir el controlador de eventos. Está bien y luego consolaremos.
-
-registrar el middleware, está bien, así como así y luego abrir el cartero o, en realidad, vamos
-
-Abra primero la terminal um aquí y luego déjeme borrar eso y luego abra el
-
-cartero y luego, si recuerdas, esta es la primera API que creamos.
-
-um, devolverá el um hola mundo, está bien, así que enviemos eso y como tú
-
-Puedo ver que genera el middleware um aquí, que es este aquí, está bien, así que solo
-
-Una nota importante: el middleware se ejecutará primero antes de llegar a cualquier API.
-
-El middleware es útil si, por ejemplo, estás haciendo algunas validaciones o um.
-
-registrar cualquier solicitud o extender los eventos está bien, así que veamos
-
-eso en acción, así que, por ejemplo, aquí vamos a ejecutar una validación simple si la autorización
-
-existe, así que en el punto final de la API, así que aquí, simplemente eliminemos eso y luego
-
-con autorización y luego usaremos una utilidad H3 que es um get
-
-um, ¿cómo se llama? um obtener encabezado de solicitud, está bien, obtener solicitud
-
-encabezado y luego el primer parámetro será el evento um y luego el segundo
-
-El parámetro será el um um, el valor del encabezado um, está bien, y ese será el
-
-autorización, así que si puede usar una A mayúscula o una pequeña, eso funcionará
-
-lo mismo y luego guárdelo y luego registremos la consola por ahora, ¿está bien?
-
-autorización está bien así, así que no estamos haciendo ninguna validación por ahora, solo estamos registrando la consola um
-
-autorización, está bien, así que abramos la terminal aquí y luego aclaremos
-
-eso y luego de vuelta al cartero y luego um, enviemos la API y como quieras
-
-Puede ver que, como se esperaba, genera el resultado indefinido.
-
-y la razón de esto es que no especificamos la autorización um aquí, está bien, así que intentemos
-
-haz eso autorización autorización um qué pasó
-
-autorización está bien, así que asegúrese de usar una a pequeña para autorización um
-
-use una pequeña aquí también, está bien y luego el valor que será um cualquier valor
-
-ya que este es solo un ejemplo simple, envíelo y generará 1, dos, 3, está bien.
 
 siguiente Ejecutemos una validación, de modo que si hay un valor de autorización, está bien si
 
@@ -341,3 +224,100 @@ valora bien el encabezado um, así que espero que hayas aprendido algo en el ser
 middleware y si tiene alguna pregunta, hágamelo saber en la sección de comentarios a continuación, eso es todo.
 
 tema y continuaremos con los complementos
+
+
+
+
+
+---
+
+
+
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.autorized = true
+  } else {
+    event.context.autorized = false
+  }
+})
+```
+
+
+
+
+---
+
+![screen12](./img/screen48.jpg)
+
+---
+
+`test.get.ts`
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.autorized)
+  return 'Hello World with GET method'
+})
+```
+
+![screen12](./img/screen49.jpg)
+
+---
+
+![screen12](./img/screen50.jpg)
+
+---
+
+![screen12](./img/screen51.jpg)
+
+---
+
+```ts
+export default defineEventHandler((event)=>{
+  if (!event.context.autorized) {
+    return createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+  return 'Hello World with GET method'
+})
+```
+---
+
+![screen12](./img/screen52.jpg)
+
+---
+
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.autorized)  
+  return 'Hello World with GET method'
+})
+```
+
+---
+
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.autorized = true
+  } else {
+    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+})
+```
+
+![screen12](./img/screen53.jpg)
+
+---
+
+![screen12](./img/screen54.jpg)
+
+---
+
+![screen12](./img/screen55.jpg)
+
+28:59m
+
+
+
