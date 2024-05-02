@@ -180,8 +180,16 @@ Eso tiene sentido, así que ese es uno de los ejemplos perfectos del middleware.
 
 ## Otro ejemplo
 
+Intentemos con otro ejemplo, esta vez estableceremos un encabezado específico en un punto final API determinado, por lo que el middleware es el lugar perfecto para hacerlo. Lo que sucederá es que antes de que llegue al punto final `/api/test` establecerá el encabezado.
+
+Escribamos la validación primero usando otra [utilidad de h3 que es `getRequestURL`](https://h3.unjs.io/utils/request#getrequesturlevent-opts-xforwardedhost-xforwardedproto). Esta utilidad recibe la propiedad `event` y con ella verificaremos si el `pathname` incluye `'/api/test'`.
+
+Con esto validaremos el punto final de la API de prueba. Si el `pathname` incluye `'/api/test'` entonces registraremos en la cónsola `'Correct endpoint'` solo para verificarlo.
+
+
+
 📃`./server/api/middleware/log.ts`
-```ts
+```ts{9,10,11}
 export default defineEventHandler((event) => {
   const authorization = getRequestHeader(event, 'authorization')
   if (authorization) {
@@ -196,11 +204,17 @@ export default defineEventHandler((event) => {
 })
 ```
 
+Enviemos desde Postman el punto final `http://localhost:3000/api/test` y en el terminal aparecerá `'Correct endpoint'` ya que este punto final incluye `'/api/test'`.
+
 ![screen12](./img/screen56.jpg)
 
 
+Esta vez nuevamente utilizaremos otra [utilidad h3 que es `setHeader`](https://h3.unjs.io/utils/response#setheaderevent-name-value). Así que configuremos el encabezado con el parámetro `event`, luego la variable  `'authorization'` como segundo parámetro y luego el valor de la variable como tercer parámetro que será `'my-custom-authorization-value'`.
+
+
+
 📃`./server/api/middleware/log.ts`
-```ts
+```ts{10}
 export default defineEventHandler((event) => {
   const authorization = getRequestHeader(event, 'authorization')
   if (authorization) {
@@ -215,70 +229,18 @@ export default defineEventHandler((event) => {
 })
 ```
 
-Intentemos con otro ejemplo, esta vez estableceremos un encabezado específico en un punto final API específico para que el middleware
+Vayamos a Postman y seleccionemo para ver los _**Headers**_ básicos de la respuesta.
 
 ![screen12](./img/screen57.jpg)
+
+
+Pero si repetimos la solicitud podemos ver entonces la variable `authorization` con el valor `'my-custom-authorization-value'` en los encabezados.
+
 ![screen12](./img/screen58.jpg)
 
-31.41
-
-es el lugar perfecto para hacer eso, así que lo que sucederá es antes de que llegue al punto final, por ejemplo, la prueba.
-
-punto final aquí, configurará bien el encabezado, así que para hacer eso, ejecutemos el
-
-validación primero, así que si y luego usemos otra utilidad um H3 que es la
-
-obtener una URL, una URL de solicitud, está bien y eso será
-
-el evento y luego será un nombre de ruta y luego seguido de incluye y
-
-luego API y luego prueba, prueba bien, ya que vamos a validar el
-
-Pruebe el punto final de la API, así que abra los corchetes de cierre y luego, um, registremos la consola.
-
-eso por ahora está bien entonces um
-
-punto final correcto, está bien, solo para verificarlo, así que regrese al cartero y luego, uh
-
-De hecho, abramos la terminal uh y luego la limpiemos y luego enviemos y como usted
-
-Puedo ver que genera el punto final correcto ya que estamos usando la prueba um API
-
-punto final está bien, así que esta vez estableceremos un encabezado para que otra utilidad H3
-
-de nuevo, así que establezca el encabezado, está bien, seguido um después de eso dentro o dentro de que es el
-
-evento y luego um, por ejemplo, aquí, um autorización, está bien, así que estableceremos un
-
-una autorización en el punto final de la API de prueba, está bien, entonces el valor para
-
-ese será um, por ejemplo, mi valor de autorización personalizado, está bien, así como así
-
-y luego, si lo ejecutamos nuevamente, eso es en realidad, seleccione los encabezados aquí
-
-Primero, como pueden ver, tenemos aquí los encabezados básicos, pero si voy a
-
-envíe eso y, como puede ver aquí, genera la autorización y luego el
-
-valora bien el encabezado um, así que espero que hayas aprendido algo en el servidor um
-
-middleware y si tiene alguna pregunta, hágamelo saber en la sección de comentarios a continuación, eso es todo.
-
-tema y continuaremos con los complementos
+Así que espero que hayas aprendido algo en el middleware del servidor. Esto es todo el tema sobre los middleware y a continuación continuaremos con los complementos.
 
 
-
-
-
-
-
-
-
-
-
-
-
-28:59m
 
 
 
