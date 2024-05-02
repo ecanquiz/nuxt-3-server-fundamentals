@@ -1,227 +1,246 @@
 # Middleware de Servidor
 
-Aprenda los conceptos básicos del middleware del servidor
+>Ahora que hemos terminado de trabajar con los puntos finales de la API del servidor, exploremos el middleware del servidor.
 
-20m
+## Conceptos básicos del middleware del servidor
 
-Está bien, ahora que hemos terminado de trabajar con los puntos finales de la API del servidor um.
+Cerremos la carpeta `api/`, por ahora, y luego en la carpeta `server/` hagamos clic derecho y luego creemos una nueva carpeta. Llamémosla `middleware/`, aquí leerá automáticamente cualquier archivo dentro de esta carpeta y se leerá como un middleware de servidor.
 
-Exploremos el middleware del servidor um, así que cerremos la carpeta API por ahora.
+![screen12](./img/screen41.jpg)
 
-y luego aquí en la carpeta del servidor, haga clic derecho y luego nueva carpeta, está bien y luego
+A continuación creemos un nuevo archivo llamado `log.ts`.
 
-Llamémoslo um middleware, está bien, así que a continuación leerá automáticamente cualquier archivo.
+![screen12](./img/screen42.jpg)
 
-dentro de la carpeta middleware y se leerá como un middleware de servidor, ¿vale?
+Por cierto, puedes nombrar este archivo aquí como quieras. En mi caso es un `log.ts` en este ejemplo. También observe que no estamos estamos añadiendo ningún tipo de sufijo relacionado con métodos HTTP porque no lo necesitamos en el middleware.
 
-así que creemos un nuevo archivo y luego iniciemos sesión. DS
+Entonces, aquí en el archivo el mismo proceso.  Exportemos por defecto la función `defineEventHandler` pasandole `event` como parámetro y luego registrar en la cónsola `'Middleware'`.
 
-Está bien y, por cierto, puedes nombrar el archivo aquí como quieras.
 
-entonces en mi caso es un registro de consola en este ejemplo, está bien, y también observe
+📃`./server/middleware/log.ts`
+```ts
+export default defineEventHandler((event) => {
+  console.log('Middleware')
+})
+```
 
-que um no estamos configurando ningún uh o no estamos añadiendo ningún método HTTP um
+Entoces abrir Postman y luego, si recuerdas, esta es [la primera `api/` que creamos](./server-api-basic-route.html). Así que devolverá el `'Hello World with GET method'`. Así que enviemos esto: `http://localhost:3000/api/test`.
 
-aquí, así que ya no lo necesitamos en el middleware, está bien, aquí en el archivo.
 
-Entonces, el mismo proceso. Entonces, en realidad, generemos el siguiente controlador de eventos.
+![screen12](./img/screen43.jpg)
 
-Así de fácil, así que exporta el valor predeterminado. Definir el controlador de eventos. Está bien y luego consolaremos.
+Vamos a la terminal, y como podemos ver, genera el `Middleware`.
 
-registrar el middleware, está bien, así como así y luego abrir el cartero o, en realidad, vamos
 
-Abra primero la terminal um aquí y luego déjeme borrar eso y luego abra el
+![screen12](./img/screen44.jpg)
 
-cartero y luego, si recuerdas, esta es la primera API que creamos.
 
-um, devolverá el um hola mundo, está bien, así que enviemos eso y como tú
+:::info Importante
+El middleware se ejecutará primero antes de llegar a cualquier API. Es útil, si por ejemplo, estamos haciendo algunas validaciones o registrando cualquier solicitud o extendiendo los eventos.
+:::
 
-Puedo ver que genera el middleware um aquí, que es este aquí, está bien, así que solo
+## Pasando a la acción
 
-Una nota importante: el middleware se ejecutará primero antes de llegar a cualquier API.
+Veamos esto en acción, por ejemplo, en este mismo archivo vamos a ejecutar una validación simple de si la autorización existe. Simplemente eliminemos el cuerpo de la función y luego usaremos una [utilidad _**h3**_ que es `getRequestHeader`](https://h3.unjs.io/utils/request#getrequestheaderevent-name) y luego el primer parámetro será el `event` y luego el segundo parámetro será el valor del encabezado, que será `authorization`. Puede usar una `'A'` mayúscula o minúscula, eso funcionará igualmente. Luego registremos la consola (por ahora), entonces guárdelo.
 
-El middleware es útil si, por ejemplo, estás haciendo algunas validaciones o um.
 
-registrar cualquier solicitud o extender los eventos está bien, así que veamos
+📃`./server/middleware/log.ts`
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  console.log(authorization)
+})
+```
 
-eso en acción, así que, por ejemplo, aquí vamos a ejecutar una validación simple si la autorización
+Tenga en cuenta que no estamos haciendo ninguna validación por ahora, solo estamos registrando en la consola la `authorization`. De vuelta a Postman enviemos la API, abramos la terminal, y como se esperaba, genera el resultado `undefined`.
 
-existe, así que en el punto final de la API, así que aquí, simplemente eliminemos eso y luego
 
-con autorización y luego usaremos una utilidad H3 que es um get
+![screen12](./img/screen45.jpg)
 
-um, ¿cómo se llama? um obtener encabezado de solicitud, está bien, obtener solicitud
 
-encabezado y luego el primer parámetro será el evento um y luego el segundo
+La razón de esto es que no especificamos la autorización, así que intentemos hacerlo. Asegúrese de que si está usando una `a` pequeña para `authorization` use una pequeña aquí también. Luego agregamos el valor que será `123` ya que este es solo un ejemplo simple.
 
-El parámetro será el um um, el valor del encabezado um, está bien, y ese será el
+![screen12](./img/screen46.jpg)
 
-autorización, así que si puede usar una A mayúscula o una pequeña, eso funcionará
+Envíelo y generará `123`.
 
-lo mismo y luego guárdelo y luego registremos la consola por ahora, ¿está bien?
+![screen12](./img/screen47.jpg)
 
-autorización está bien así, así que no estamos haciendo ninguna validación por ahora, solo estamos registrando la consola um
 
-autorización, está bien, así que abramos la terminal aquí y luego aclaremos
 
-eso y luego de vuelta al cartero y luego um, enviemos la API y como quieras
+## Ejecutando una validación
 
-Puede ver que, como se esperaba, genera el resultado indefinido.
+Vamos a ejecutar una validación, de modo que si hay un valor de `authorization` está bien, si no es `undefined`. Usaremos otra [utilidad **_h3_** que es el `event.context`](https://h3.unjs.io/guide/event#eventcontext). Puedes simplemente establecer cualquier valor que desees, por lo que en este ejemplo será `authorized`. Y luego estableceremos ese valor en `true`. Puedes usar cualquier valor siempre y cuando uses el `event.context` y luego, el valor que quieres. Entonces en este ejemplo está `authorized`.
 
-y la razón de esto es que no especificamos la autorización um aquí, está bien, así que intentemos
 
-haz eso autorización autorización um qué pasó
+📃`./server/middleware/log.ts`
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.authorized = true
+  } else {
+    event.context.authorized = false
+  }
+})
+```
 
-autorización está bien, así que asegúrese de usar una a pequeña para autorización um
+Entonces, cierre la terminal por ahora y luego, si no hay un valor de `authorization` se establecerá el `event.context.authorized` en `false`, de lo contrario será `true`.
 
-use una pequeña aquí también, está bien y luego el valor que será um cualquier valor
 
-ya que este es solo un ejemplo simple, envíelo y generará 1, dos, 3, está bien.
+Luego, dado que estamos usando la API de punto final `http://localhost:3000/api/test` vamos al archivo.
 
-siguiente Ejecutemos una validación, de modo que si hay un valor de autorización, está bien si
+![screen12](./img/screen48.jpg)
 
-no es um indefinido um usaremos otra utilidad um um H3 que es
+Y hagamos el registro de cónsola por ahora con el `event.context.authorized`.
 
-um el evento y luego el contexto y luego después del contexto puedes simplemente um
+📃`./server/api/test.get.ts`
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.authorized)
+  return 'Hello World with GET method'
+})
+```
 
-puedes establecer cualquier valor de um que desees, por lo que en este ejemplo será um
+Luego, enviemos esto nuevamente, de vuelta a Postman para que pueda ver la API.
 
-autorizado, está bien, así que autorizado, está bien, así como así y luego
+![screen12](./img/screen49.jpg)
 
-Um, estableceremos ese valor en verdadero, así que solo haz una nota rápida nuevamente.
+Pueda ver que sale `true` ya que hay un valor en nuestra variable `authorized`.
 
-um, puedes usar cualquier valor en este, siempre y cuando uses el contexto del evento y luego um, el valor.
+![screen12](./img/screen50.jpg)
 
-que quieres aquí, está bien, entonces en este ejemplo está autorizado, está bien, entonces, um
+Dentro de Postman, voy a eliminar la `authorization` para que dé como resultado `false`. 
 
-cierre la terminal de vez en cuando, si no,
+![screen12](./img/screen51.jpg)
 
-um valor de autorización para el contexto del evento y luego estableceremos
+Vamos a la terminal y vemos que ahora se registra `false`.
 
-el autorizado a falsear ok al igual que
+![screen12](./img/screen52.jpg)
 
-eso y luego, dado que estamos usando la API de punto final de prueba um aquí, de vuelta en el
+## Arrojando un `error`
 
-cartero para que pueda ver la API y luego probar, ese es este aquí, así que
+Esa es nuestra validación simple, así que, intentemos arrojar un error. 
 
-veamos el archivo y luego hagamos la validación aquí también o
+Por ejemplo, si el `authorized` es `false`, devolvamos el error. Entonces el `statusCode` será `401` y luego un `statusMessage` que será `Unauthorized`. Así que básicamente si el `authorized` es `false` creará un error y eso arrojará un código `401` con un mensaje `Unauthorized`.
 
-registro de la consola por ahora, está bien, entonces la consola
+📃`./server/api/test.get.ts`
+```ts
+export default defineEventHandler((event)=>{
+  if (!event.context.authorized) {
+    return createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+  return 'Hello World with GET method'
+})
+```
 
-inicie sesión, está bien y luego um, volvamos a nuestro middleware y luego um
+Vamos a ver eso en acción en Postman. Como puede ver, el `Headers` de `authorization` está actualmente deshabilitado, por lo que debería estar mostrando el error. Así que envíalo y, como puedes ver, dice `401 Unauthorized`.
 
-El contexto que creamos está bien, así que copiemos eso y luego lo peguemos.
+![screen12](./img/screen53.jpg)
 
-en tu um en nuestra API de prueba aquí, está bien, así que espero que tenga sentido, creo que es
 
-uh, muy sencillo, así que probémoslo en la terminal, así que, um
+Es posible que podrías estar preguntando si estamos haciendo una validación múltiple o repetida, así que vamos a refactorizar.
 
-borre y luego envíelo nuevamente, está bien, para que pueda ver que sale verdadero ya que
+En lo adelante, en el archivo `./server/api/test.get.ts` simplemente registraremos un `console.log(event.context.authorized)` en caso de que esté autorizado.
 
-hay un valor en nuestra autorización, pero si voy a aclarar eso una y otra vez
+📃`./server/api/test.get.ts`
+```ts
+export default defineEventHandler((event)=>{
+  console.log(event.context.authorized)  
+  return 'Hello World with GET method'
+})
+```
 
-entonces voy a eliminar la autorización U para que dé como resultado falso
+Y en el archivo `./server/api/middleware/log.ts` lanzaremos un error cuando `authorization` no esté definido.
 
-Está bien, está bien, esa es nuestra validación simple, así que, en realidad, lancemos.
+📃`./server/api/middleware/log.ts`
+```ts
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.authorized = true
+  } else {
+    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+})
+```
 
-intente arrojar un error, por ejemplo aquí, si es así, si el um autorizado es
+Bastante sencillo, así que vamos a probarlo y todo debería de estar funcionando exactamente igual. Ejecutemos eso nuevamente para que el resultado esperado sea
+nuevamente un error, y para que pueda ver `401 Unauthorized`.
 
-verdadero o en realidad es falso, devolvamos el error, está bien, entonces el código de estado y
+Pero si en Postman habilitamos la `authorization` y lo enviamos.
 
-entonces será 401 y luego un mensaje de estado que será um
+![screen12](./img/screen54.jpg)
 
-ano R está bien, así que básicamente si el
+Entonces `console.log` registra `true`.
 
-um autorizado es falso um crea un error y eso arrojará un 401
+![screen12](./img/screen55.jpg)
 
-autorización no autorizada
+Eso tiene sentido, así que ese es uno de los ejemplos perfectos del middleware.
 
+## Otro ejemplo
 
----
+Intentemos con otro ejemplo, esta vez estableceremos un encabezado específico en un punto final API determinado, por lo que el middleware es el lugar perfecto para hacerlo. Lo que sucederá es que antes de que llegue al punto final `/api/test` establecerá el encabezado.
 
+Escribamos la validación primero usando otra [utilidad de h3 que es `getRequestURL`](https://h3.unjs.io/utils/request#getrequesturlevent-opts-xforwardedhost-xforwardedproto). Esta utilidad recibe la propiedad `event` y con ella verificaremos si el `pathname` incluye `'/api/test'`.
 
-o vamos a ver eso en acción o en el cartero así que aquí
+Con esto validaremos el punto final de la API de prueba. Si el `pathname` incluye `'/api/test'` entonces registraremos en la cónsola `'Correct endpoint'` solo para verificarlo.
 
-Como puede ver, el encabezado de autorización está actualmente deshabilitado, por lo que debería estar
 
-um muestra el error, está bien, así que envíalo y, como puedes ver, dice 41.
 
-no autorizado, está bien y es posible que te estés preguntando um o podrías estar preguntando eso
+📃`./server/api/middleware/log.ts`
+```ts{9,10,11}
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.authorized = true
+  } else {
+    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
 
-um, estamos haciendo una validación múltiple o repetida aquí, así que aquí en la consola L
+  if (getRequestURL(event).pathname.includes('/api/test')){
+    console.log('Correct endpoint')
+  }
+})
+```
 
-en realidad puedes simplemente arrojar el error allí, así que, por ejemplo, ese
+Enviemos desde Postman el punto final `http://localhost:3000/api/test` y en el terminal aparecerá `'Correct endpoint'` ya que este punto final incluye `'/api/test'`.
 
-en lugar de hacer una validación aquí, así que simplemente eliminemos eso por completo o simplemente registremos la consola si
+![screen12](./img/screen56.jpg)
 
-hay un valor para que el contexto del registro de la consola o en realidad
 
-evento y luego contexto y luego autorizado, está bien, así que aquí en el uh
+Esta vez nuevamente utilizaremos otra [utilidad h3 que es `setHeader`](https://h3.unjs.io/utils/response#setheaderevent-name-value). Así que configuremos el encabezado con el parámetro `event`, luego la variable  `'authorization'` como segundo parámetro y luego el valor de la variable como tercer parámetro que será `'my-custom-authorization-value'`.
 
-middleware, así que peguemos el error allí y luego agreguemos throw, está bien, así que aquí, um
 
-por ejemplo, si este um, el error no tiene valor, entonces arroja un error, está bien, así que si
 
-tiene un valor, así que proceda al punto final y luego la consola lo registre bien, así que
+📃`./server/api/middleware/log.ts`
+```ts{10}
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.authorized = true
+  } else {
+    throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
 
-bastante sencillo, así que vamos a probarlo, así que vamos a limpiar nuestra terminal.
+  if (getRequestURL(event).pathname.includes('/api/test')){    
+    setHeader(event, 'authorization', 'my-custom-authorization-value')
+  }
+})
+```
 
-y luego, um, ejecutemos eso nuevamente para que el resultado esperado aquí sea
+Vayamos a Postman y seleccionemo para ver los _**Headers**_ básicos de la respuesta.
 
-un error nuevamente, está bien, para que pueda ver 401 y autorizado, pero si voy a habilitar la autorización um aquí, entonces
+![screen12](./img/screen57.jpg)
 
-habilítelo y luego envíelo, conso registra el um verdadero aquí, que es um esto
 
-uno aquí mismo, está bien, pero si no es así, desactívelo y luego enviémoslo.
+Pero si repetimos la solicitud podemos ver entonces la variable `authorization` con el valor `'my-custom-authorization-value'` en los encabezados.
 
-No, no afectará a la API, por lo que arrojará un error, así que espero.
+![screen12](./img/screen58.jpg)
 
-Eso tiene sentido, así que ese es uno de los ejemplos perfectos del middleware U.
+Así que espero que hayas aprendido algo en el middleware del servidor. Esto es todo el tema sobre los middleware y a continuación continuaremos con los complementos.
 
-Está bien, está bien, intentemos con otro ejemplo nuevamente, así que esta vez, para
 
-Por ejemplo, estableceremos un encabezado específico en un punto final API específico para que el middleware
 
-es el lugar perfecto para hacer eso, así que lo que sucederá es antes de que llegue al punto final, por ejemplo, la prueba.
 
-punto final aquí, configurará bien el encabezado, así que para hacer eso, ejecutemos el
 
-validación primero, así que si y luego usemos otra utilidad um H3 que es la
-
-obtener una URL, una URL de solicitud, está bien y eso será
-
-el evento y luego será un nombre de ruta y luego seguido de incluye y
-
-luego API y luego prueba, prueba bien, ya que vamos a validar el
-
-Pruebe el punto final de la API, así que abra los corchetes de cierre y luego, um, registremos la consola.
-
-eso por ahora está bien entonces um
-
-punto final correcto, está bien, solo para verificarlo, así que regrese al cartero y luego, uh
-
-De hecho, abramos la terminal uh y luego la limpiemos y luego enviemos y como usted
-
-Puedo ver que genera el punto final correcto ya que estamos usando la prueba um API
-
-punto final está bien, así que esta vez estableceremos un encabezado para que otra utilidad H3
-
-de nuevo, así que establezca el encabezado, está bien, seguido um después de eso dentro o dentro de que es el
-
-evento y luego um, por ejemplo, aquí, um autorización, está bien, así que estableceremos un
-
-una autorización en el punto final de la API de prueba, está bien, entonces el valor para
-
-ese será um, por ejemplo, mi valor de autorización personalizado, está bien, así como así
-
-y luego, si lo ejecutamos nuevamente, eso es en realidad, seleccione los encabezados aquí
-
-Primero, como pueden ver, tenemos aquí los encabezados básicos, pero si voy a
-
-envíe eso y, como puede ver aquí, genera la autorización y luego el
-
-valora bien el encabezado um, así que espero que hayas aprendido algo en el servidor um
-
-middleware y si tiene alguna pregunta, hágamelo saber en la sección de comentarios a continuación, eso es todo.
-
-tema y continuaremos con los complementos

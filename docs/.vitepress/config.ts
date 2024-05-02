@@ -23,6 +23,7 @@ export default defineConfig({
         { text: 'Ruta Anidada Básica de la API del Servidor', link: '/basic-nested-server-api-route' },
         { text: 'Ruta Dinámica Anidada de la API del Servidor', link: '/dynamic-nested-server-api-route' },
         { text: 'Middleware de Servidor', link: '/server-middleware' },
+        { text: 'Complementos del Servidor Nitro', link: '/server-plugins-nitro' },
         { text: 'Cómo Utilizar la Consola para Desarrolladores', link: '/how-to-use-the-js-dev-console' },        
       ]
     }],
