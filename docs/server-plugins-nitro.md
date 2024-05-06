@@ -1,6 +1,102 @@
 # Complementos del Servidor Nitro
 
-31:46
+![screen12](./img/screen59.jpg)
+![screen12](./img/screen60.jpg)
+
+📃`./server/plugins/test.ts`
+```ts
+export default defineNitroPlugin((nitroApp)=>{
+  console.log('Nitro', nitroApp)
+})
+```
+
+![screen12](./img/screen61.jpg)
+
+![screen12](./img/screen62.jpg)
+
+📃`./server/plugins/test.ts`
+```ts
+export default defineNitroPlugin((nitroApp)=>{
+  // console.log('Nitro', nitroApp)
+  nitroApp.hooks.hook('render:html', (html, {event})=>{
+    console.log('HTML Rendered.')
+    html.bodyAppend.push('<h1>I am from nitro.</h1>')
+  })
+})
+```
+
+📃`./server/middleware/log.ts`
+```ts{6}
+export default defineEventHandler((event) => {
+  const authorization = getRequestHeader(event, 'authorization')
+  if (authorization) {
+    event.context.authorized = true
+  } else {
+    // throw createError({statusCode:401, statusMessage: 'Unauthorized'})
+  }
+
+  if (getRequestURL(event).pathname.includes('/api/test')){
+    console.log('Correct endpoint')
+    setHeader(event, 'authorization', 'my-custom-authorization-value')
+  }
+})
+```
+
+
+![screen12](./img/screen63.jpg)
+
+![screen12](./img/screen64.jpg)
+
+📃`./app.vue`
+```vue
+<template>
+  <div>
+    <!--NuxtWelcome /-->
+  </div>
+</template>
+```
+
+![screen12](./img/screen65.jpg)
+
+![screen12](./img/screen66.jpg)
+
+
+📃`./server/plugins/test.ts`
+```ts
+export default defineNitroPlugin((nitroApp)=>{
+  // console.log('Nitro', nitroApp)
+  nitroApp.hooks.hook('render:html', (html, {event})=>{
+    // console.log('HTML Rendered.')
+    html.bodyAppend.push('<h1>I am from nitro.</h1>')
+  })
+
+  nitroApp.hooks.hook('render:response', (response, {event})=>{
+    console.log(event)
+  })
+})
+```
+
+![screen12](./img/screen67.jpg)
+
+
+📃`./server/plugins/test.ts`
+```ts
+export default defineNitroPlugin((nitroApp)=>{
+  // console.log('Nitro', nitroApp)
+  nitroApp.hooks.hook('render:html', (html, {event})=>{
+    // console.log('HTML Rendered.')
+    html.bodyAppend.push('<h1>I am from nitro.</h1>')
+  })
+
+  nitroApp.hooks.hook('render:response', (response, {event})=>{
+    console.log(event.node.req.headers['user-agent'])
+  })
+})
+```
+
+![screen12](./img/screen68.jpg)
+
+39.00
 
 Learn the basics of server plugins and nitro hooks
 
