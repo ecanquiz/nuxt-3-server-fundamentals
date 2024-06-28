@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as i,V as o}from"./chunks/framework.BDcLCbPe.js";const b=JSON.parse('{"title":"Introducción","description":"","frontmatter":{},"headers":[],"relativePath":"intro.md","filePath":"intro.md"}'),r={name:"intro.md"},t=o("",6),l=[t];function s(n,d,c,u,m,p){return i(),a("div",null,l)}const v=e(r,[["render",s]]);export{b as __pageData,v as default};
