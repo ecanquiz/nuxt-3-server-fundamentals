@@ -99,7 +99,33 @@ export default defineNitroPlugin((nitroApp)=>{
 
 ![screen12](./img/screen68.jpg)
 
-39.00
+📃`./server/plugins/test.ts`
+```ts
+import mongoose from 'mongoose'
+
+export default defineNitroPlugin((nitroApp)=>{
+  // console.log('Nitro', nitroApp)
+  nitroApp.hooks.hook('render:html', (html, {event})=>{
+    // console.log('HTML Rendered.')
+    html.bodyAppend.push('<h1>I am from nitro.</h1>')
+  })
+
+  nitroApp.hooks.hook('render:response', (response, {event})=>{
+    console.log(event.node.req.headers['user-agent'])
+  })
+
+  mongoose.connect(useRuntimeConfig().MONGO_URI)
+  console.log('Connected to mongoDB.')
+})
+```
+
+https://nitro.unjs.io/guide/plugins
+
+https://nuxt.com/docs/guide/going-further/hooks
+https://nuxt.com/docs/guide/going-further/hooks#server-hooks-runtime
+https://nuxt.com/docs/api/advanced/hooks#nitro-app-hooks-runtime-server-side
+
+41:41
 
 Learn the basics of server plugins and nitro hooks
 
